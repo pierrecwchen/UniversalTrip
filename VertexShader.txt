@@ -1,0 +1,67 @@
+#version 140
+in vec4 vPosition;
+in vec4 vNormal;
+out vec4 color;
+
+uniform vec4 ambientProduct, diffuseProduct, specularProduct;
+
+uniform vec4 lightPosition;
+uniform vec4 lightDirection;
+
+uniform vec4 eyePosition;
+
+uniform float shininess;
+
+uniform mat4 spaceshipMovement;
+
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+
+void main()
+{
+	// For moving the spaceship.
+	vec4 positionTransformation = spaceshipMovement * vPosition;
+	
+	vec3 positionOfVertex = positionTransformation.xyz;
+
+	vec3 vertexToLight = normalize(lightPosition.xyz - positionOfVertex);
+	vec3 vertexToEye = normalize(eyePosition.xyz - positionOfVertex);
+	vec3 halfAngle = normalize(vertexToLight + vertexToEye);
+
+
+	vec3 vertexNormal = vNormal.xyz;
+
+
+	vec4 ambientOfVertex = ambientProduct;
+
+
+	float degreeOfDiffuse = max(dot(vertexToLight, vertexNormal), 0.0);
+	vec4 diffuseOfVertex = degreeOfDiffuse * diffuseProduct;
+
+
+	float degreeOfSpecular = pow( max( dot(vertexNormal, halfAngle), 0.0), shininess);
+	vec4 specularOfVertex = degreeOfSpecular * specularProduct;
+
+
+	vec3 distancePolynomial = vec3(0.5, 0.05, 0.01);
+	float distanceBetweenLightAndVertex = distance(lightPosition.xyz, positionOfVertex);
+
+
+	if(dot(vertexToLight, vertexNormal) < 0.0)
+		specularOfVertex = vec4(0.0, 0.0, 0.0, 1.0);
+
+
+	color = ambientOfVertex;
+
+	
+	// If the angle between vector light to vertex and vector light direction is less than 45 degree, the specular and diffuse do things.
+	// Also, with the coefficient of distance and attenuation.
+
+	if(acos(dot(normalize(lightDirection.xyz), -vertexToLight)) < radians(45.0))
+		color += (diffuseOfVertex + specularOfVertex) / (distancePolynomial.x + distanceBetweenLightAndVertex * distancePolynomial.y + pow(distanceBetweenLightAndVertex, 2) * distancePolynomial.z) * pow(dot(normalize(lightDirection.xyz), -vertexToLight), 5.0);
+
+
+	gl_Position = projectionMatrix * modelViewMatrix * positionTransformation;
+	
+	color.a = 1.0;
+}
