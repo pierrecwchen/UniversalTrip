@@ -4,76 +4,36 @@ The program was created for graphic class in 2011 with visual studio 2010 under 
 
 Controls and default settings:
 
-//**********************************************************************
 
-//
+Press:
 
-//    Press:
+"up" and "down" to increase and decrease speed of spaceship,
 
-//
+"F1" for first person view, "F2" for third person view,
 
-//    "up" and "down" to increase and decrease speed of spaceship,
+"F3" for back shoulder view, "F4" for god view,
 
-//
+"s" for super speed,
 
-//    "F1" for first person view, "F2" for third person view,
+"z" and "x" for normal and wide view,
 
-//
+"h" for stop the spaceship,
 
-//    "F3" for back shoulder view, "F4" for god view,
+"q" or "esc" to exit program,
 
-//
+And move mouse to rotate the spaceship.
 
-//    "s" for super speed,
+Notice: the rotation of left and right will be narrowed as the rotation of up and down is more near to up or down.
 
-//
 
-//    "z" and "x" for normal and wide view,
+By default:
 
-//
+Number of planets = 900 with max = 10 and min = 1,
 
-//    "h" for stop the spaceship,
+First person view,
 
-//
+Spaceship initially placed in (0, 0, 0) and look at (0, 0, 0.005),
 
-//    "q" or "esc" to exit program,
+Wide view mode,
 
-//
-
-//    And move mouse to rotate the spaceship.
-
-//
-
-//    Notice: the rotation of left and right will be narrowed
-
-//    as the rotation of up and down is more near to up or down.
-
-//
-
-//
-
-//    By default:
-
-//
-
-//    Number of planets = 900 with max = 10 and min = 1,
-
-//
-
-//    First person view,
-
-//    
-
-//    Spaceship initially placed in (0, 0, 0) and look at (0, 0, 0.005),
-
-//
-
-//    Wide view mode,
-
-//
-
-//    Spotlight source at (0, 0, 0.002).
-
-//
-
-//**********************************************************************
+Spotlight source at (0, 0, 0.002).
